@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yo.toolsystem.dao.CommentsMapper" >
+  <resultMap id="BaseResultMap" type="com.yo.toolsystem.model.Comments" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="userNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="toolId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="contents" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="commentsTime" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="userName" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userNum, toolId, contents, commentsTime, userName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comments
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByToolId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    <include refid="Base_Column_List" />
+    from comments
+    where toolId = #{ToolId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comments
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yo.toolsystem.model.Comments" >
+    insert into comments (id, userNum, toolId, 
+      contents, commentsTime, userName
+      )
+    values (#{id,jdbcType=INTEGER}, #{usernum,jdbcType=VARCHAR}, #{toolid,jdbcType=INTEGER}, 
+      #{contents,jdbcType=VARCHAR}, #{commentstime,jdbcType=DATE}, #{username,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yo.toolsystem.model.Comments" >
+    insert into comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="usernum != null" >
+        userNum,
+      </if>
+      <if test="toolid != null" >
+        toolId,
+      </if>
+      <if test="contents != null" >
+        contents,
+      </if>
+      <if test="commentstime != null" >
+        commentsTime,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="usernum != null" >
+        #{usernum,jdbcType=VARCHAR},
+      </if>
+      <if test="toolid != null" >
+        #{toolid,jdbcType=INTEGER},
+      </if>
+      <if test="contents != null" >
+        #{contents,jdbcType=VARCHAR},
+      </if>
+      <if test="commentstime != null" >
+        #{commentstime,jdbcType=DATE},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yo.toolsystem.model.Comments" >
+    update comments
+    <set >
+      <if test="usernum != null" >
+        userNum = #{usernum,jdbcType=VARCHAR},
+      </if>
+      <if test="toolid != null" >
+        toolId = #{toolid,jdbcType=INTEGER},
+      </if>
+      <if test="contents != null" >
+        contents = #{contents,jdbcType=VARCHAR},
+      </if>
+      <if test="commentstime != null" >
+        commentsTime = #{commentstime,jdbcType=DATE},
+      </if>
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yo.toolsystem.model.Comments" >
+    update comments
+    set userNum = #{usernum,jdbcType=VARCHAR},
+      toolId = #{toolid,jdbcType=INTEGER},
+      contents = #{contents,jdbcType=VARCHAR},
+      commentsTime = #{commentstime,jdbcType=DATE},
+      userName = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

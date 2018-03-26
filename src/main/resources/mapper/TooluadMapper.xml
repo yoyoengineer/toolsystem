@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yo.toolsystem.dao.TooluadMapper" >
+  <resultMap id="BaseResultMap" type="com.yo.toolsystem.model.Tooluad" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="toolName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="category" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="version" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="directory" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="uploadTime" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="publisher" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="likeNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="downloadtimes" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="toolTags" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="systemSupport" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sizeOfTool" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, 
+    description, toolTags, systemSupport, sizeOfTool
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tooluad
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, description, toolTags, systemSupport, sizeOfTool
+    FROM tooluad
+    WHERE  toolName LIKE #{toolname,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultType="com.yo.toolsystem.model.Tooluad">
+    SELECT
+    id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, description, toolTags, systemSupport, sizeOfTool
+    FROM tooluad
+  </select>
+  <select id="selectToolTpyeByByPrimaryKey" resultType="java.lang.Integer">
+    select
+    category
+    FROM tooluad
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByDescription" resultType="com.yo.toolsystem.model.Tooluad">
+    SELECT
+    id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, description, toolTags, systemSupport, sizeOfTool
+    FROM tooluad
+    WHERE  description LIKE #{description,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByTag" resultType="com.yo.toolsystem.model.Tooluad">
+    SELECT
+    id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, description, toolTags, systemSupport, sizeOfTool
+    FROM tooluad
+    WHERE  toolTags LIKE #{tooltags,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPubilsher" resultType="com.yo.toolsystem.model.Tooluad">
+    SELECT
+    id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, description, toolTags, systemSupport, sizeOfTool
+    FROM tooluad
+    WHERE  publisher LIKE #{publisher,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByToolTypeId" resultType="com.yo.toolsystem.model.Tooluad">
+    SELECT
+    id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, description, toolTags, systemSupport, sizeOfTool
+    FROM tooluad
+    WHERE  category = #{typeId,jdbcType=INTEGER}
+    order by likeNum or downloadtimes desc
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+   </select>
+  <select id="selectAllToolsNum" resultType="java.lang.Integer">
+    SELECT
+    COUNT(id)
+    FROM tooluad
+  </select>
+  <select id="selectAllTools" resultType="com.yo.toolsystem.model.Tooluad" parameterType="java.util.Map">
+    SELECT
+    id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, description, toolTags, systemSupport, sizeOfTool
+    FROM tooluad
+    order by likeNum AND downloadtimes desc
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <select id="selectByToolTypeIdNum" resultType="java.lang.Integer">
+    SELECT
+    COUNT(id)
+    FROM tooluad
+    WHERE category=#{category,jdbcType=INTEGER}
+  </select>
+  <select id="selectToolsNumBySearch" resultType="java.lang.Integer">
+    select
+    COUNT(id)
+    FROM tooluad
+    WHERE toolTags LIKE #{tooltags,jdbcType=VARCHAR}
+    or description LIKE #{description,jdbcType=VARCHAR}
+    or publisher LIKE #{publisher,jdbcType=VARCHAR}
+    or toolName LIKE #{toolname,jdbcType=VARCHAR}
+  </select>
+  <select id="searchTools" resultType="com.yo.toolsystem.model.Tooluad">
+     SELECT
+     id, toolName, category, version, directory, uploadTime, publisher, likeNum, downloadtimes, description, toolTags, systemSupport, sizeOfTool
+     FROM tooluad
+     WHERE  toolTags LIKE #{word,jdbcType=VARCHAR}
+     or description LIKE #{word,jdbcType=VARCHAR}
+     or publisher LIKE #{word,jdbcType=VARCHAR}
+     or toolName LIKE #{word,jdbcType=VARCHAR}
+     order by likeNum or downloadtimes desc
+     limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tooluad
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yo.toolsystem.model.Tooluad" >
+    insert into tooluad (id, toolName, category, 
+      version, directory, uploadTime, 
+      publisher, likeNum, downloadtimes, 
+      description, toolTags, systemSupport, 
+      sizeOfTool)
+    values (#{id,jdbcType=INTEGER}, #{toolname,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, 
+      #{version,jdbcType=VARCHAR}, #{directory,jdbcType=VARCHAR}, #{uploadtime,jdbcType=DATE}, 
+      #{publisher,jdbcType=VARCHAR}, #{likenum,jdbcType=INTEGER}, #{downloadtimes,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{tooltags,jdbcType=VARCHAR}, #{systemsupport,jdbcType=VARCHAR}, 
+      #{sizeoftool,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yo.toolsystem.model.Tooluad" >
+    insert into tooluad
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="toolname != null" >
+        toolName,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="directory != null" >
+        directory,
+      </if>
+      <if test="uploadtime != null" >
+        uploadTime,
+      </if>
+      <if test="publisher != null" >
+        publisher,
+      </if>
+      <if test="likenum != null" >
+        likeNum,
+      </if>
+      <if test="downloadtimes != null" >
+        downloadtimes,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="tooltags != null" >
+        toolTags,
+      </if>
+      <if test="systemsupport != null" >
+        systemSupport,
+      </if>
+      <if test="sizeoftool != null" >
+        sizeOfTool,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="toolname != null" >
+        #{toolname,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="directory != null" >
+        #{directory,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadtime != null" >
+        #{uploadtime,jdbcType=DATE},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="likenum != null" >
+        #{likenum,jdbcType=INTEGER},
+      </if>
+      <if test="downloadtimes != null" >
+        #{downloadtimes,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="tooltags != null" >
+        #{tooltags,jdbcType=VARCHAR},
+      </if>
+      <if test="systemsupport != null" >
+        #{systemsupport,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeoftool != null" >
+        #{sizeoftool,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yo.toolsystem.model.Tooluad" >
+    update tooluad
+    <set >
+      <if test="toolname != null" >
+        toolName = #{toolname,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="directory != null" >
+        directory = #{directory,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadtime != null" >
+        uploadTime = #{uploadtime,jdbcType=DATE},
+      </if>
+      <if test="publisher != null" >
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="likenum != null" >
+        likeNum = #{likenum,jdbcType=INTEGER},
+      </if>
+      <if test="downloadtimes != null" >
+        downloadtimes = #{downloadtimes,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="tooltags != null" >
+        toolTags = #{tooltags,jdbcType=VARCHAR},
+      </if>
+      <if test="systemsupport != null" >
+        systemSupport = #{systemsupport,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeoftool != null" >
+        sizeOfTool = #{sizeoftool,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yo.toolsystem.model.Tooluad" >
+    update tooluad
+    set toolName = #{toolname,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      version = #{version,jdbcType=VARCHAR},
+      directory = #{directory,jdbcType=VARCHAR},
+      uploadTime = #{uploadtime,jdbcType=DATE},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      likeNum = #{likenum,jdbcType=INTEGER},
+      downloadtimes = #{downloadtimes,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      toolTags = #{tooltags,jdbcType=VARCHAR},
+      systemSupport = #{systemsupport,jdbcType=VARCHAR},
+      sizeOfTool = #{sizeoftool,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateLikeNumByPrimaryKey">
+    update tooluad
+    set likeNum = likeNum +1
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateDownloadtime">
+    update tooluad
+    set downloadtimes = downloadtimes +1
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,123 @@
+@charset "utf-8";
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+html{
+    background: url(../img/sky_ballon3.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+body {
+	padding-top: 70px;
+	background: rgb(52, 73, 94);
+/*	background: url(../img/sky_ballon3.jpg) no-repeat;*/
+}
+
+.center-in-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+#SearchInput::-ms-input-placeholder{text-align: center;}
+#SearchInput::-webkit-input-placeholder{text-align: center;}
+input.text{text-align:center;padding:5px 20px;width:100%;}
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,600italic,300,600);
+
+
+
+#login-form {
+  position: absolute;
+  width: 350px;
+  left: 39%;
+  top: 10%;
+}
+
+#login-form h1 {
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 18px;
+	padding: 20px;
+  background-color: #262927;
+  color: #ED6025;
+  border-radius: 5px 5px 0 0;
+  margin: 0;
+}
+
+#login-form form {
+  height: 205px;
+  background-color: #555;
+  border-radius: 0 0 5px 5px;
+}
+
+
+#login-form fieldset {
+	padding: 20px;
+	position: relative;
+  border: none;
+  text-align: center;
+}
+
+#login-form input {
+	font-size: 16px;
+  outline: none;
+	-webkit-appearance: none;
+  border: none;
+}
+
+#login-form input[type="text"],
+#login-form input[type="password"] {
+  border: 1px solid #444;
+	padding: 12px 10px;
+	width: 282px;
+  background-color: #cfcfcf;
+  color: #222;
+}
+
+#login-form input[type="text"] {
+  border-radius: 4px 4px 0 0;
+}
+
+#login-form input[type="password"] {
+  border-radius: 0 0 4px 4px;
+}
+
+#login-form input[type="submit"] {
+  
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 25px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #ED6025;
+  color: #262927;
+}
+#login-form input[type="reset"] {
+  
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 25px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #ED6025;
+  color: #262927;
+}
+
+#login-form input[type="submit"]:hover {
+  background-color: #ff9939;
+  color: #ddd;
+}
+#modalSignIn{
+	margin-top: 10%;
+	margin-left: -20%;
+}
+#modalSignUp{
+	margin-top: 10%;
+	margin-left: -20%;
+}
